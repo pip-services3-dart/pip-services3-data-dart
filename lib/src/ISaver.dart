@@ -1,4 +1,5 @@
 import 'dart:async';
+
 /// Interface for data processing components that save data items.
 abstract class ISaver<T> {
   /// Saves given data items.

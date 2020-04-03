@@ -77,7 +77,7 @@ class JsonFilePersister<T> implements ILoader<T>, ISaver<T>, IConfigurable {
     try {
       var json = file.readAsStringSync();
       var list = JsonConverter.toNullableMap(json);
-      var arr = ArrayConverter.listToArray(list);
+      var arr = List<T>.from(ArrayConverter.listToArray(list));
 
       return arr;
     } catch (ex) {

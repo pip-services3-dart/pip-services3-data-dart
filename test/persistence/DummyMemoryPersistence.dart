@@ -1,29 +1,27 @@
-// import { FilterParams } from 'pip-services3-commons-node';
-// import { PagingParams } from 'pip-services3-commons-node';
-// import { DataPage } from 'pip-services3-commons-node';
+import 'dart:async';
 
-// import { IdentifiableMemoryPersistence } from '../../src/persistence/IdentifiableMemoryPersistence';
-// import { Dummy } from '../Dummy';
-// import { IDummyPersistence } from '../IDummyPersistence';
+import 'package:pip_services3_commons/pip_services3_commons.dart';
 
-// export class DummyMemoryPersistence 
-//     extends IdentifiableMemoryPersistence<Dummy, string> 
-//     implements IDummyPersistence {
+import '../../lib/src/persistence/IdentifiableMemoryPersistence.dart';
+import '../Dummy.dart';
+import '../IDummyPersistence.dart';
 
-//     public constructor() {
-//         super();
-//     }
+class DummyMemoryPersistence
+    extends IdentifiableMemoryPersistence<Dummy, String>
+    implements IDummyPersistence {
+  DummyMemoryPersistence() : super();
 
-//     public getPageByFilter(correlationId: string, filter: FilterParams, paging: PagingParams, 
-//         callback: (err: any, page: DataPage<Dummy>) => void): void {
+  @override
+  Future<DataPage<Dummy>> getPageByFilter(
+      String correlationId, filter, PagingParams paging) {
+    filter = filter ?? FilterParams();
+    var key = filter.getAsNullableString('key');
 
-//         filter = filter != null ? filter : new FilterParams();
-//         let key = filter.getAsNullableString("key");
-
-//         super.getPageByFilter(correlationId, (item) => {
-//             if (key != null && item.key != key)
-//                 return false;
-//             return true;
-//         }, paging, null, null, callback);
-//     }
-// }
+    return super.getPageByFilterEx(correlationId, (Dummy item) {
+      if (key != null && item.key != key) {
+        return false;
+      }
+      return true;
+    }, paging, null, null);
+  }
+}

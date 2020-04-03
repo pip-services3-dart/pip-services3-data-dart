@@ -1,23 +1,20 @@
-// import { ConfigParams } from 'pip-services3-commons-node';
+import 'package:pip_services3_commons/pip_services3_commons.dart';
+import '../../lib/src/persistence/JsonFilePersister.dart';
+import './DummyMemoryPersistence.dart';
+import '../Dummy.dart';
 
-// import { JsonFilePersister } from '../../src/persistence/JsonFilePersister';
-// import { DummyMemoryPersistence } from './DummyMemoryPersistence';
-// import { Dummy } from '../Dummy';
+class DummyFilePersistence extends DummyMemoryPersistence {
+  JsonFilePersister<Dummy> _persister;
 
-// export class DummyFilePersistence extends DummyMemoryPersistence {
-// 	protected _persister: JsonFilePersister<Dummy>;
+  DummyFilePersistence([String path]) : super() {
+    _persister = JsonFilePersister<Dummy>(path);
+    loader = _persister;
+    saver = _persister;
+  }
 
-//     public constructor(path?: string) {
-//         super();
-
-//         this._persister = new JsonFilePersister<Dummy>(path);
-//         this._loader = this._persister;
-//         this._saver = this._persister;
-//     }
-
-//     public configure(config: ConfigParams): void {
-//         super.configure(config);
-//         this._persister.configure(config);
-//     }
-
-// }
+  @override
+  void configure(ConfigParams config) {
+    super.configure(config);
+    _persister.configure(config);
+  }
+}

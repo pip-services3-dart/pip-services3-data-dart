@@ -126,7 +126,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// Return			Future that receives error or null no errors occured.
   @override
   Future clear(String correlationId) async {
-    items = [];
+    items = <T>[];
     logger.trace(correlationId, 'Cleared items');
     await save(correlationId);
   }

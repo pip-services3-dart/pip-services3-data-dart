@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:pip_services3_commons/pip_services3_commons.dart';
 import './MemoryPersistence.dart';
 import '../IWriter.dart';
@@ -98,13 +97,13 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [select]            (optional) projection parameters (not used yet)
   /// Return         Future that receives a data page
   /// Throws error.
-  Future<DataPage<T>> getPageByFilter(
+  Future<DataPage<T>> getPageByFilterEx(
       String correlationId, filter, PagingParams paging, sort, select) async {
     var items = this.items;
 
     // Filter and sort
     if (filter is Function) {
-      items = items.where(filter);
+      items = List<T>.from(items.where(filter));
     }
     if (sort is Function) {
       items.sort(sort);
@@ -121,9 +120,9 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     }
 
     if (skip > 0) {
-      items.removeRange(0, skip);
+      items.removeRange(0, skip <= items.length ? skip : items.length);
     }
-    items.getRange(0, take);
+    items.getRange(0, take <= items.length ? skip : items.length);
 
     logger.trace(correlationId, 'Retrieved %d items', [items.length]);
 
@@ -149,7 +148,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
 
     // Apply filter
     if (filter is Function) {
-      items = items.where(filter);
+      items = List<T>.from(items.where(filter));
     }
 
     // Apply sorting
@@ -188,7 +187,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
 
     // Apply filter
     if (filter is Function) {
-      items = items.where(filter);
+      items = List<T>.from(items.where(filter));
     }
 
     T item;
@@ -213,9 +212,9 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         Future that receives data item or error.
   @override
   Future<T> getOneById(String correlationId, K id) async {
-    List<T> items = this.items.where((x) {
+    List<T> items = List<T>.from(this.items.where((x) {
       return x.id == id;
-    });
+    }));
     var item = items.isNotEmpty ? items[0] : null;
 
     if (item != null) {
@@ -236,16 +235,20 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   @override
   Future<T> create(String correlationId, T item) async {
     //item = _.clone(item);
-    item = json.decode(json.encode(item));
+    //item = ( json.decode(json.encode(item)));
 
-    if (item.id == null) {
-      ObjectWriter.setProperty(item, 'id', IdGenerator.nextLong());
+    //TODO: copy object;
+    T clone_item = <T>[item].toList()[0];
+
+
+    if (clone_item.id == null) {
+      ObjectWriter.setProperty(clone_item, 'id', IdGenerator.nextLong());
     }
 
-    items.add(item);
-    logger.trace(correlationId, 'Created item %s', [item.id]);
+    items.add(clone_item);
+    logger.trace(correlationId, 'Created item %s', [clone_item.id]);
     await save(correlationId);
-    return item;
+    return clone_item;
   }
 
   /// Sets a data item. If the data item exists it updates it,
@@ -257,24 +260,27 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   @override
   Future<T> set(String correlationId, T item) async {
     //item = _.clone(item);
-    item = json.decode(json.encode(item));
+    //tem = json.decode(json.encode(item));
+    
+    //TODO: copy object;
+    T clone_item = <T>[item].toList()[0];
 
-    if (item.id == null) {
+    if (clone_item.id == null) {
       ObjectWriter.setProperty(item, 'id', IdGenerator.nextLong());
     }
 
     var index = List.from(items.map((x) {
       return x.id;
-    })).indexOf(item.id);
+    })).indexOf(clone_item.id);
 
     if (index < 0) {
-      items.add(item);
+      items.add(clone_item);
     } else {
-      items[index] = item;
+      items[index] = clone_item;
     }
-    logger.trace(correlationId, 'Set item %s', [item.id]);
+    logger.trace(correlationId, 'Set item %s', [clone_item.id]);
     await save(correlationId);
-    return item;
+    return clone_item;
   }
 
   /// Updates a data item.
@@ -295,14 +301,16 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     }
 
     //item = _.clone(item);
-    item = json.decode(json.encode(item));
+    //item = json.decode(json.encode(item));
+    //TODO: copy object;
+    T clone_item = <T>[item].toList()[0];
 
-    items[index] = item;
-    logger.trace(correlationId, 'Updated item %s', [item.id]);
+    items[index] = clone_item;
+    logger.trace(correlationId, 'Updated item %s', [clone_item.id]);
 
     await save(correlationId);
 
-    return item;
+    return clone_item;
   }
 
   /// Updates only few selected fields in a data item.

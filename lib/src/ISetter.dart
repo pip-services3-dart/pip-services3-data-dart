@@ -7,7 +7,7 @@ abstract class ISetter<T> {
   ///
   /// - [correlation_id]    (optional) transaction id to trace execution through call chain.
   /// - [item]              a item to be set.
-  /// Return         (optional) Future that receives updated item 
+  /// Return         (optional) Future that receives updated item
   /// Throw error.
   Future<T> set(String correlation_id, T item);
 }

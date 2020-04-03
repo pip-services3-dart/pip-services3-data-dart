@@ -1,6 +1,5 @@
- 
 /// Contains interfaces for various design patterns that work with data.
- 
+
 export './IPartialUpdater.dart';
 export './IFilteredPageReader.dart';
 export './IFilteredReader.dart';
