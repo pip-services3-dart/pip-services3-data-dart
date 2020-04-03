@@ -18,8 +18,8 @@
 // /// accessing cached items via this._items property and calling [[save]] method
 // /// on updates.
 // /// 
-// /// @see [[JsonFilePersister]]
-// /// @see [[MemoryPersistence]]
+// /// See [[JsonFilePersister]]
+// /// See [[MemoryPersistence]]
 // /// 
 // /// ### Configuration parameters ###
 // /// 

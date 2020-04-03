@@ -1,7 +1,8 @@
-// import { IStringIdentifiable } from 'pip-services3-commons-node';
+import 'package:pip_services3_commons/pip_services3_commons.dart';
 
-// export class Dummy implements IStringIdentifiable {
-//     public id: string;
-//     public key: string;
-//     public content: string;
-// }
+class Dummy implements IStringIdentifiable {
+  @override
+  String id;
+  String key;
+  String content;
+}

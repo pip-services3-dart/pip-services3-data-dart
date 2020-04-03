@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:pip_services3_commons/pip_services3_commons.dart';
 
 /// Interface for data processing components that can create, update and delete data items.
 abstract class IWriter<T, K> {

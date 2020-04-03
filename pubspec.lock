@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  mustache4dart2:
+    dependency: transitive
+    description:
+      name: mustache4dart2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   node_interop:
     dependency: transitive
     description:
@@ -211,6 +218,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  pip_services3_components:
+    dependency: "direct main"
+    description:
+      name: pip_services3_components
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   pool:
     dependency: transitive
     description:

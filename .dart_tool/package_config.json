@@ -140,6 +140,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "mustache4dart2",
+      "rootUri": "file:///C:/Users/Nikopol/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/mustache4dart2-0.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "node_interop",
       "rootUri": "file:///C:/Users/Nikopol/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/node_interop-1.0.3",
       "packageUri": "lib/",
@@ -178,6 +184,12 @@
     {
       "name": "pip_services3_commons",
       "rootUri": "file:///C:/Users/Nikopol/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/pip_services3_commons-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "pip_services3_components",
+      "rootUri": "file:///C:/Users/Nikopol/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/pip_services3_components-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -332,7 +344,7 @@
       "languageVersion": "2.0"
     }
   ],
-  "generated": "2020-04-03T08:39:50.635817Z",
+  "generated": "2020-04-03T09:34:23.789049Z",
   "generator": "pub",
   "generatorVersion": "2.7.2"
 }
