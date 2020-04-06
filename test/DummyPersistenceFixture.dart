@@ -5,8 +5,8 @@ import './Dummy.dart';
 import './IDummyPersistence.dart';
 
 class DummyPersistenceFixture {
-  final _dummy1 = Dummy(null, 'Key 1', 'Content 1');
-  final _dummy2 = Dummy(null, 'Key 2', 'Content 2');
+  final _dummy1 = Dummy.from(null, 'Key 1', 'Content 1');
+  final _dummy2 = Dummy.from(null, 'Key 2', 'Content 2');
 
   IDummyPersistence _persistence;
 

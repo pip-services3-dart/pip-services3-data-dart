@@ -53,6 +53,7 @@
     <ol>
       <li class="section-title"><a href="pip_services3_data/pip_services3_data-library.html#classes">Classes</a></li>
       <li><a href="pip_services3_data/FilePersistence-class.html">FilePersistence</a></li>
+      <li><a href="pip_services3_data/IdentifiableFilePersistence-class.html">IdentifiableFilePersistence</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence-class.html">IdentifiableMemoryPersistence</a></li>
       <li><a href="pip_services3_data/IFilteredPageReader-class.html">IFilteredPageReader</a></li>
       <li><a href="pip_services3_data/IFilteredReader-class.html">IFilteredReader</a></li>
@@ -97,12 +98,12 @@ of persistence components that cache all data in memory.</p>
 <pre class="language-dart"><code>class MyMemoryPersistence extends MemoryPersistence&lt;MyData&gt; {
 
    Future&lt;MyData&gt; getByName(String correlationId, String name) async {
-        var item = _.find(items, (d) =&gt; d.name == name);
+        var item = items.firstWhere((d) =&gt; d.name == name);
        return item;
     });
 
     Future&lt;MyData&gt; set(String correlatonId, MyData item) async {
-        items = _.filter(items, (d) =&gt; d.name != name);
+        items = items.where((d) =&gt; d.name != name);
         items.add(item);
         await save(correlationId);
         return item;

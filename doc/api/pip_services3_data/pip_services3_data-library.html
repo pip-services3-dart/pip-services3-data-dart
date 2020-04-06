@@ -69,6 +69,14 @@
           Abstract persistence component that stores data in flat files
 and caches them in memory. <a href="pip_services3_data/FilePersistence-class.html">[...]</a>
         </dd>
+        <dt id="IdentifiableFilePersistence">
+          <span class="name "><a href="pip_services3_data/IdentifiableFilePersistence-class.html">IdentifiableFilePersistence</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends IIdentifiable<span class="signature">&lt;<wbr><span class="type-parameter">K</span>&gt;</span></span>, <span class="type-parameter">K</span>&gt;</span></span>         
+        </dt>
+        <dd>
+          Abstract persistence component that stores data in flat files
+and implements a number of CRUD operations over data items with unique ids.
+The data items must implement [<code>https://rawgit.com/pip-services-node/pip-services3-commons-node/master/doc/api/interfaces/data.iidentifiable.html IIdentifiable interface</code>]. <a href="pip_services3_data/IdentifiableFilePersistence-class.html">[...]</a>
+        </dd>
         <dt id="IdentifiableMemoryPersistence">
           <span class="name "><a href="pip_services3_data/IdentifiableMemoryPersistence-class.html">IdentifiableMemoryPersistence</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends IIdentifiable<span class="signature">&lt;<wbr><span class="type-parameter">K</span>&gt;</span></span>, <span class="type-parameter">K</span>&gt;</span></span>         
         </dt>
@@ -167,6 +175,7 @@ The data items must implement [<code>https://rawgit.com/pip-services-node/pip-se
     <ol>
       <li class="section-title"><a href="pip_services3_data/pip_services3_data-library.html#classes">Classes</a></li>
       <li><a href="pip_services3_data/FilePersistence-class.html">FilePersistence</a></li>
+      <li><a href="pip_services3_data/IdentifiableFilePersistence-class.html">IdentifiableFilePersistence</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence-class.html">IdentifiableMemoryPersistence</a></li>
       <li><a href="pip_services3_data/IFilteredPageReader-class.html">IFilteredPageReader</a></li>
       <li><a href="pip_services3_data/IFilteredReader-class.html">IFilteredReader</a></li>

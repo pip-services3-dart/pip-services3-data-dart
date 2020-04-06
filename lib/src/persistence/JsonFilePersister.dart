@@ -11,18 +11,17 @@ import '../ISaver.dart';
 ///
 /// ### Configuration parameters ###
 ///
-/// - path:          path to the file where data is stored
+/// - [path]:          path to the file where data is stored
 ///
 /// ### Example ###
 ///
-///     let persister = new JsonFilePersister("./data/data.json");
+///     var persister = JsonFilePersister("./data/data.json");
 ///
-///     persister.save("123", ["A", "B", "C"], (err) => {
+///     await persister.save("123", ["A", "B", "C"]);
 ///         ...
-///         persister.load("123", (err, items) => {
-///             console.log(items);                      // Result: ["A", "B", "C"]
-///         });
-///     });
+///     var items = await persister.load("123");
+///     print(items);  // Result: ["A", "B", "C"]
+///
 
 class JsonFilePersister<T> implements ILoader<T>, ISaver<T>, IConfigurable {
   String path_;

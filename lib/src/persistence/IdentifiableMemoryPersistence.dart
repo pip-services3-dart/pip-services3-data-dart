@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:pip_services3_commons/pip_services3_commons.dart';
 import './MemoryPersistence.dart';
 import '../IWriter.dart';
@@ -212,7 +213,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         Future that receives data item or error.
   @override
   Future<T> getOneById(String correlationId, K id) async {
-    List<T> items = List<T>.from(this.items.where((x) {
+    var items = List<T>.from(this.items.where((x) {
       return x.id == id;
     }));
     var item = items.isNotEmpty ? items[0] : null;
@@ -234,12 +235,10 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
 
   @override
   Future<T> create(String correlationId, T item) async {
-    //item = _.clone(item);
-    //item = ( json.decode(json.encode(item)));
-
     //TODO: copy object;
-    T clone_item = <T>[item].toList()[0];
-
+    var jsonMap = json.decode(json.encode(item));
+    var clone_item = TypeReflector.createInstanceByType(T, []);
+    clone_item.fromJson(jsonMap);
 
     if (clone_item.id == null) {
       ObjectWriter.setProperty(clone_item, 'id', IdGenerator.nextLong());
@@ -259,11 +258,16 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         (optional) Future that receives updated item or error.
   @override
   Future<T> set(String correlationId, T item) async {
-    //item = _.clone(item);
-    //tem = json.decode(json.encode(item));
-    
+    //item = json.decode(json.encode(item));
+
     //TODO: copy object;
-    T clone_item = <T>[item].toList()[0];
+    var jsonMap = json.decode(json.encode(item));
+    var clone_item = TypeReflector.createInstanceByType(T, []);
+    clone_item.fromJson(jsonMap);
+
+    if (clone_item.id == null) {
+      ObjectWriter.setProperty(clone_item, 'id', IdGenerator.nextLong());
+    }
 
     if (clone_item.id == null) {
       ObjectWriter.setProperty(item, 'id', IdGenerator.nextLong());
@@ -300,10 +304,15 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
       return null;
     }
 
-    //item = _.clone(item);
     //item = json.decode(json.encode(item));
     //TODO: copy object;
-    T clone_item = <T>[item].toList()[0];
+    var jsonMap = json.decode(json.encode(item));
+    var clone_item = TypeReflector.createInstanceByType(T, []);
+    clone_item.fromJson(jsonMap);
+
+    if (clone_item.id == null) {
+      ObjectWriter.setProperty(clone_item, 'id', IdGenerator.nextLong());
+    }
 
     items[index] = clone_item;
     logger.trace(correlationId, 'Updated item %s', [clone_item.id]);
@@ -332,7 +341,6 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     }
 
     var item = items[index];
-    //item = _.extend(item, data.getAsObject());
     ObjectWriter.setProperties(item, data);
 
     items[index] = item;

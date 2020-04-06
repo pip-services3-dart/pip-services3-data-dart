@@ -6,9 +6,13 @@ class Dummy implements IStringIdentifiable {
   String key;
   String content;
 
-  Dummy(this.id, this.key, this.content);
+  Dummy() {
+    Dummy.from('', '', '');
+  }
+
+  Dummy.from(this.id, this.key, this.content);
   factory Dummy.fromJson(Map<String, dynamic> json) {
-    return Dummy(json['id'], json['key'], json['content']);
+    return Dummy.from(json['id'], json['key'], json['content']);
   }
 
   Map<String, dynamic> toJson() {

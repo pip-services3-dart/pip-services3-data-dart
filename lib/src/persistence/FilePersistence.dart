@@ -9,7 +9,7 @@ import './MemoryPersistence.dart';
 /// This is the most basic persistence component that is only
 /// able to store data items of any type. Specific CRUD operations
 /// over the data items must be implemented in child classes by
-/// accessing this._items property and calling [[save]] method.
+/// accessing _items property and calling [[save]] method.
 ///
 /// See [[MemoryPersistence]]
 /// See [[JsonFilePersister]]
@@ -25,19 +25,19 @@ import './MemoryPersistence.dart';
 /// ### Example ###
 ///
 ///     class MyJsonFilePersistence extends FilePersistence<MyData> {
-///         public constructor(path?: string) {
-///             super(new JsonPersister(path));
+///         MyJsonFilePersistence([String path]): super(JsonPersister(path)) {
 ///         }
 ///
-///         public getByName(correlationId: string, name: string, callback: (err, item) => void): void {
-///             let item = _.find(this._items, (d) => d.name == name);
-///             callback(null, item);
+///          Future<MyData> getByName(String correlationId, String name) async {
+///             var item = items.firstWhere((d) => d.name == name);
+///             return item;
 ///         });
 ///
-///         public set(correlatonId: string, item: MyData, callback: (err) => void): void {
-///             this._items = _.filter(this._items, (d) => d.name != name);
-///             this._items.push(item);
-///             this.save(correlationId, callback);
+///         Future<MyData> set(String correlatonId, MyData item) {
+///             items = List.from(item.where((d) => d.name != name));
+///             items.add(item);
+///             await save(correlationId);
+///             return item;
 ///         }
 ///
 ///     }
@@ -50,9 +50,9 @@ class FilePersistence<T> extends MemoryPersistence<T> implements IConfigurable {
   /// - [persister]    (optional) a persister component that loads and saves data from/to flat file.
 
   FilePersistence([JsonFilePersister<T> persister]) {
-    this.persister = persister ?? JsonFilePersister<T>();
-    saver = this.persister;
-    loader = this.persister;
+    persister = persister ?? JsonFilePersister<T>();
+    saver = persister;
+    loader = persister;
   }
 
   /// Configures component by passing configuration parameters.

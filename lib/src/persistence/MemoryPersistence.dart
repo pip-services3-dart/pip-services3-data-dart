@@ -24,12 +24,12 @@ import '../ISaver.dart';
 ///     class MyMemoryPersistence extends MemoryPersistence<MyData> {
 ///
 ///        Future<MyData> getByName(String correlationId, String name) async {
-///             var item = _.find(items, (d) => d.name == name);
+///             var item = items.firstWhere((d) => d.name == name);
 ///            return item;
 ///         });
 ///
 ///         Future<MyData> set(String correlatonId, MyData item) async {
-///             items = _.filter(items, (d) => d.name != name);
+///             items = items.where((d) => d.name != name);
 ///             items.add(item);
 ///             await save(correlationId);
 ///             return item;

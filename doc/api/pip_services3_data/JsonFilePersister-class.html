@@ -53,6 +53,7 @@
     <ol>
       <li class="section-title"><a href="pip_services3_data/pip_services3_data-library.html#classes">Classes</a></li>
       <li><a href="pip_services3_data/FilePersistence-class.html">FilePersistence</a></li>
+      <li><a href="pip_services3_data/IdentifiableFilePersistence-class.html">IdentifiableFilePersistence</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence-class.html">IdentifiableMemoryPersistence</a></li>
       <li><a href="pip_services3_data/IFilteredPageReader-class.html">IFilteredPageReader</a></li>
       <li><a href="pip_services3_data/IFilteredReader-class.html">IFilteredReader</a></li>
@@ -85,17 +86,15 @@
 <p>It is used by [<a href="pip_services3_data/FilePersistence-class.html">FilePersistence</a>], but can be useful on its own.</p>
 <h3 id="configuration-parameters">Configuration parameters</h3>
 <ul>
-<li>path:          path to the file where data is stored</li>
+<li><a href="pip_services3_data/JsonFilePersister/path.html">path</a>:          path to the file where data is stored</li>
 </ul>
 <h3 id="example">Example</h3>
-<pre class="language-dart"><code>let persister = new JsonFilePersister("./data/data.json");
+<pre class="language-dart"><code>var persister = JsonFilePersister("./data/data.json");
 
-persister.save("123", ["A", "B", "C"], (err) =&gt; {
+await persister.save("123", ["A", "B", "C"]); 
     ...
-    persister.load("123", (err, items) =&gt; {
-        console.log(items);                      // Result: ["A", "B", "C"]
-    });
-});
+var items = await persister.load("123"); 
+print(items);  // Result: ["A", "B", "C"]
 </code></pre>
     </section>
     

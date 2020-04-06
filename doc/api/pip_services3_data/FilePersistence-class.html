@@ -53,6 +53,7 @@
     <ol>
       <li class="section-title"><a href="pip_services3_data/pip_services3_data-library.html#classes">Classes</a></li>
       <li><a href="pip_services3_data/FilePersistence-class.html">FilePersistence</a></li>
+      <li><a href="pip_services3_data/IdentifiableFilePersistence-class.html">IdentifiableFilePersistence</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence-class.html">IdentifiableMemoryPersistence</a></li>
       <li><a href="pip_services3_data/IFilteredPageReader-class.html">IFilteredPageReader</a></li>
       <li><a href="pip_services3_data/IFilteredReader-class.html">IFilteredReader</a></li>
@@ -86,7 +87,7 @@ and caches them in memory.</p>
 <p>This is the most basic persistence component that is only
 able to store data items of any type. Specific CRUD operations
 over the data items must be implemented in child classes by
-accessing this._items property and calling [<a href="pip_services3_data/MemoryPersistence/save.html">save</a>] method.</p>
+accessing _items property and calling [<a href="pip_services3_data/MemoryPersistence/save.html">save</a>] method.</p>
 <p>See [<a href="pip_services3_data/MemoryPersistence-class.html">MemoryPersistence</a>]
 See [<a href="pip_services3_data/JsonFilePersister-class.html">JsonFilePersister</a>]</p>
 <h3 id="configuration-parameters">Configuration parameters</h3>
@@ -99,19 +100,19 @@ See [<a href="pip_services3_data/JsonFilePersister-class.html">JsonFilePersister
 </ul>
 <h3 id="example">Example</h3>
 <pre class="language-dart"><code>class MyJsonFilePersistence extends FilePersistence&lt;MyData&gt; {
-    public constructor(path?: string) {
-        super(new JsonPersister(path));
+    MyJsonFilePersistence([String path]): super(JsonPersister(path)) {
     }
 
-    public getByName(correlationId: string, name: string, callback: (err, item) =&gt; void): void {
-        let item = _.find(this._items, (d) =&gt; d.name == name);
-        callback(null, item);
+     Future&lt;MyData&gt; getByName(String correlationId, String name) async {
+        var item = items.firstWhere((d) =&gt; d.name == name);
+        return item;
     });
 
-    public set(correlatonId: string, item: MyData, callback: (err) =&gt; void): void {
-        this._items = _.filter(this._items, (d) =&gt; d.name != name);
-        this._items.push(item);
-        this.save(correlationId, callback);
+    Future&lt;MyData&gt; set(String correlatonId, MyData item) {
+        items = List.from(item.where((d) =&gt; d.name != name));
+        items.add(item);
+        await save(correlationId);
+        return item;
     }
 
 }
