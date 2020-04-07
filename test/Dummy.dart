@@ -26,7 +26,7 @@ class Dummy implements IStringIdentifiable, ICloneable {
   }
 
   @override
-  Dummy clone(){
-     return Dummy.from(id, key, content);
+  Dummy clone() {
+    return Dummy.from(id, key, content);
   }
 }

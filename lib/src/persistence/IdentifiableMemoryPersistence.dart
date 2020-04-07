@@ -98,15 +98,15 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [select]            (optional) projection parameters (not used yet)
   /// Return         Future that receives a data page
   /// Throws error.
-  Future<DataPage<T>> getPageByFilterEx(
-      String correlationId, filter, PagingParams paging, sort, select) async {
+  Future<DataPage<T>> getPageByFilterEx(String correlationId, Function filter,
+      PagingParams paging, Function sort) async {
     var items = this.items;
 
     // Filter and sort
-    if (filter is Function) {
+    if (filter != null) {
       items = List<T>.from(items.where(filter));
     }
-    if (sort is Function) {
+    if (sort != null) {
       items.sort(sort);
     }
 
@@ -143,7 +143,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [select]           (optional) projection parameters (not used yet)
   /// Return                Future that receives a data list
   /// Throw  error.
-  Future<List<T>> getListByFilter(
+  Future<List<T>> getListByFilterEx(
       String correlationId, filter, sort, select) async {
     var items = this.items;
 
@@ -171,7 +171,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     var filter = (T item) {
       return ids.indexOf(item.id) >= 0;
     };
-    return getListByFilter(correlationId, filter, null, null);
+    return getListByFilterEx(correlationId, filter, null, null);
   }
 
   /// Gets a random item from items that match to a given filter.

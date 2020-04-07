@@ -86,7 +86,7 @@
 and implements a number of CRUD operations over data items with unique ids.
 The data items must implement [<code>https://rawgit.com/pip-services-node/pip-services3-commons-node/master/doc/api/interfaces/data.iidentifiable.html IIdentifiable interface</code>].</p>
 <p>In basic scenarios child classes shall only override [<code>getPageByFilter</code>],
-[<a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilter.html">getListByFilter</a>] or [<a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByFilter.html">deleteByFilter</a>] operations with specific filter function.
+[<code>getListByFilter</code>] or [<a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByFilter.html">deleteByFilter</a>] operations with specific filter function.
 All other operations can be used out of the box.</p>
 <p>In complex scenarios child classes can implement additional operations by
 accessing cached items via this._items property and calling [<a href="pip_services3_data/MemoryPersistence/save.html">save</a>] method
@@ -294,13 +294,13 @@ FilterParams.fromTuples(<code>"name", "ABC"</code>),
           Deletes multiple data items by their unique ids. <a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByIds.html">[...]</a>
                   
 </dd>
-        <dt id="getListByFilter" class="callable">
-          <span class="name"><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilter.html">getListByFilter</a></span><span class="signature">(<wbr><span class="parameter" id="getListByFilter-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="getListByFilter-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span> <span class="parameter" id="getListByFilter-param-sort"><span class="type-annotation">dynamic</span> <span class="parameter-name">sort</span></span> <span class="parameter" id="getListByFilter-param-select"><span class="type-annotation">dynamic</span> <span class="parameter-name">select</span></span>)
+        <dt id="getListByFilterEx" class="callable">
+          <span class="name"><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilterEx.html">getListByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getListByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="getListByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span> <span class="parameter" id="getListByFilterEx-param-sort"><span class="type-annotation">dynamic</span> <span class="parameter-name">sort</span></span> <span class="parameter" id="getListByFilterEx-param-select"><span class="type-annotation">dynamic</span> <span class="parameter-name">select</span></span>)
             <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">List<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>&gt;</span></span>
           </span>
                   </dt>
         <dd>
-          Gets a list of data items retrieved by a given filter and sorted according to sort parameters. <a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilter.html">[...]</a>
+          Gets a list of data items retrieved by a given filter and sorted according to sort parameters. <a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilterEx.html">[...]</a>
                   
 </dd>
         <dt id="getListByIds" class="callable">
@@ -331,7 +331,7 @@ FilterParams.fromTuples(<code>"name", "ABC"</code>),
                   
 </dd>
         <dt id="getPageByFilterEx" class="callable">
-          <span class="name"><a href="pip_services3_data/IdentifiableMemoryPersistence/getPageByFilterEx.html">getPageByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getPageByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="getPageByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span> <span class="parameter" id="getPageByFilterEx-param-paging"><span class="type-annotation">PagingParams</span> <span class="parameter-name">paging</span>, </span> <span class="parameter" id="getPageByFilterEx-param-sort"><span class="type-annotation">dynamic</span> <span class="parameter-name">sort</span></span> <span class="parameter" id="getPageByFilterEx-param-select"><span class="type-annotation">dynamic</span> <span class="parameter-name">select</span></span>)
+          <span class="name"><a href="pip_services3_data/IdentifiableMemoryPersistence/getPageByFilterEx.html">getPageByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getPageByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="getPageByFilterEx-param-filter"><span class="type-annotation">Function</span> <span class="parameter-name">filter</span></span> <span class="parameter" id="getPageByFilterEx-param-paging"><span class="type-annotation">PagingParams</span> <span class="parameter-name">paging</span>, </span> <span class="parameter" id="getPageByFilterEx-param-sort"><span class="type-annotation">Function</span> <span class="parameter-name">sort</span></span>)
             <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">DataPage<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>&gt;</span></span>
           </span>
                   </dt>
@@ -486,7 +486,7 @@ otherwise it create a new data item. <a href="pip_services3_data/IdentifiableMem
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByFilter.html">deleteByFilter</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence/deleteById.html">deleteById</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByIds.html">deleteByIds</a></li>
-      <li><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilter.html">getListByFilter</a></li>
+      <li><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilterEx.html">getListByFilterEx</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByIds.html">getListByIds</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence/getOneById.html">getOneById</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence/getOneRandom.html">getOneRandom</a></li>
@@ -517,7 +517,7 @@ otherwise it create a new data item. <a href="pip_services3_data/IdentifiableMem
 <footer>
   <span class="no-break">
     pip_services3_data
-      1.0.0
+      1.0.2
   </span>
 
   <!-- footer-text placeholder -->

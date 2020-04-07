@@ -22,6 +22,6 @@ class DummyMemoryPersistence
         return false;
       }
       return true;
-    }, paging, null, null);
+    }, paging, null);
   }
 }

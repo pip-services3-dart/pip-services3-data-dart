@@ -6,3 +6,6 @@
 
 - Add support for IClonable objects in methods of IdentifiableMemoryPersistence
 
+## 1.0.2
+
+- Add suffix Ex for methods  getListByFilter and getPageByFilter in IdentifiableMemoryPersistence
