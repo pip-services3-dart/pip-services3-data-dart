@@ -1,6 +1,6 @@
 import 'package:pip_services3_commons/pip_services3_commons.dart';
 
-class Dummy implements IStringIdentifiable {
+class Dummy implements IStringIdentifiable, ICloneable {
   @override
   String id;
   String key;
@@ -23,5 +23,10 @@ class Dummy implements IStringIdentifiable {
     id = json['id'];
     key = json['key'];
     content = json['content'];
+  }
+
+  @override
+  Dummy clone(){
+     return Dummy.from(id, key, content);
   }
 }

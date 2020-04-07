@@ -235,10 +235,14 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
 
   @override
   Future<T> create(String correlationId, T item) async {
-    //TODO: copy object;
-    var jsonMap = json.decode(json.encode(item));
-    var clone_item = TypeReflector.createInstanceByType(T, []);
-    clone_item.fromJson(jsonMap);
+    var clone_item;
+    if (item is ICloneable) {
+      clone_item = (item as ICloneable).clone();
+    } else {
+      var jsonMap = json.decode(json.encode(item));
+      clone_item = TypeReflector.createInstanceByType(T, []);
+      clone_item.fromJson(jsonMap);
+    }
 
     if (clone_item.id == null) {
       ObjectWriter.setProperty(clone_item, 'id', IdGenerator.nextLong());
@@ -258,12 +262,14 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         (optional) Future that receives updated item or error.
   @override
   Future<T> set(String correlationId, T item) async {
-    //item = json.decode(json.encode(item));
-
-    //TODO: copy object;
-    var jsonMap = json.decode(json.encode(item));
-    var clone_item = TypeReflector.createInstanceByType(T, []);
-    clone_item.fromJson(jsonMap);
+    var clone_item;
+    if (item is ICloneable) {
+      clone_item = (item as ICloneable).clone();
+    } else {
+      var jsonMap = json.decode(json.encode(item));
+      clone_item = TypeReflector.createInstanceByType(T, []);
+      clone_item.fromJson(jsonMap);
+    }
 
     if (clone_item.id == null) {
       ObjectWriter.setProperty(clone_item, 'id', IdGenerator.nextLong());
@@ -304,11 +310,14 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
       return null;
     }
 
-    //item = json.decode(json.encode(item));
-    //TODO: copy object;
-    var jsonMap = json.decode(json.encode(item));
-    var clone_item = TypeReflector.createInstanceByType(T, []);
-    clone_item.fromJson(jsonMap);
+    var clone_item;
+    if (item is ICloneable) {
+      clone_item = (item as ICloneable).clone();
+    } else {
+      var jsonMap = json.decode(json.encode(item));
+      clone_item = TypeReflector.createInstanceByType(T, []);
+      clone_item.fromJson(jsonMap);
+    }
 
     if (clone_item.id == null) {
       ObjectWriter.setProperty(clone_item, 'id', IdGenerator.nextLong());

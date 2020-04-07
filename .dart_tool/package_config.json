@@ -189,7 +189,7 @@
     },
     {
       "name": "pip_services3_components",
-      "rootUri": "file:///C:/Users/Nikopol/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/pip_services3_components-1.0.0",
+      "rootUri": "file:///C:/Users/Nikopol/AppData/Roaming/Pub/Cache/hosted/pub.dartlang.org/pip_services3_components-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -344,7 +344,7 @@
       "languageVersion": "2.0"
     }
   ],
-  "generated": "2020-04-03T09:34:23.789049Z",
+  "generated": "2020-04-07T11:53:07.625175Z",
   "generator": "pub",
   "generatorVersion": "2.7.2"
 }
