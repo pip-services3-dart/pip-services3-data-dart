@@ -11,14 +11,21 @@ void main() {
     persistence.configure(ConfigParams());
     fixture = DummyPersistenceFixture(persistence);
 
-    test('Crud Operations', () async {
+    setUp(() async {
+      await persistence.open(null);
       await persistence.clear(null);
-      fixture.testCrudOperations();
+    });
+
+    tearDown(() async {
+      await persistence.close(null);
+    });
+
+    test('Crud Operations', () async {
+      await fixture.testCrudOperations();
     });
 
     test('Batch Operations', () async {
-      await persistence.clear(null);
-      fixture.testBatchOperations();
+      await fixture.testBatchOperations();
     });
   });
 }

@@ -8,21 +8,23 @@ void main() {
     DummyPersistenceFixture fixture;
 
     persistence = DummyFilePersistence('./data/dummies.json');
-
     fixture = DummyPersistenceFixture(persistence);
 
-    test('Crud Operations', () async {
+    setUp(() async {
       await persistence.open(null);
       await persistence.clear(null);
-      fixture.testCrudOperations();
+    });
+
+    tearDown(() async {
       await persistence.close(null);
     });
 
+    test('Crud Operations', () async {
+      await fixture.testCrudOperations();
+    });
+
     test('Batch Operations', () async {
-      await persistence.open(null);
-      await persistence.clear(null);
-      fixture.testBatchOperations();
-      await persistence.close(null);
+      await fixture.testBatchOperations();
     });
   });
 }
