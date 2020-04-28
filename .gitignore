@@ -4,5 +4,8 @@
 *.map
 /obj/test/**/*
 /config/config.json
-/config/config.yml
+/config/config.yaml
 /data/dummies.json
+/.dart_tool
+/.packages
+/pubspec.lock
