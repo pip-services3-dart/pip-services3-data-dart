@@ -1,5 +1,5 @@
 import 'package:pip_services3_commons/pip_services3_commons.dart';
-import '../../lib/src/persistence/JsonFilePersister.dart';
+import 'package:pip_services3_data/pip_services3_data.dart';
 import './DummyMemoryPersistence.dart';
 import '../Dummy.dart';
 

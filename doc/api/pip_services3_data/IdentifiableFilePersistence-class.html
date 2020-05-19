@@ -311,6 +311,15 @@ var item = await persistence.deleteById("123", "1");
           Deletes multiple data items by their unique ids. <a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByIds.html">[...]</a>
                   <div class="features">inherited</div>
 </dd>
+        <dt id="getCountByFilterEx" class="callable inherited">
+          <span class="name"><a href="pip_services3_data/IdentifiableMemoryPersistence/getCountByFilterEx.html">getCountByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getCountByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="getCountByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span>)
+            <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">int</span>&gt;</span></span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Gets a count of data items retrieved by a given filter. <a href="pip_services3_data/IdentifiableMemoryPersistence/getCountByFilterEx.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
         <dt id="getListByFilterEx" class="callable inherited">
           <span class="name"><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilterEx.html">getListByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getListByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="getListByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span> <span class="parameter" id="getListByFilterEx-param-sort"><span class="type-annotation">dynamic</span> <span class="parameter-name">sort</span></span> <span class="parameter" id="getListByFilterEx-param-select"><span class="type-annotation">dynamic</span> <span class="parameter-name">select</span></span>)
             <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">List<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>&gt;</span></span>
@@ -487,6 +496,7 @@ otherwise it create a new data item. <a href="pip_services3_data/IdentifiableMem
       <li class="inherited"><a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByFilter.html">deleteByFilter</a></li>
       <li class="inherited"><a href="pip_services3_data/IdentifiableMemoryPersistence/deleteById.html">deleteById</a></li>
       <li class="inherited"><a href="pip_services3_data/IdentifiableMemoryPersistence/deleteByIds.html">deleteByIds</a></li>
+      <li class="inherited"><a href="pip_services3_data/IdentifiableMemoryPersistence/getCountByFilterEx.html">getCountByFilterEx</a></li>
       <li class="inherited"><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByFilterEx.html">getListByFilterEx</a></li>
       <li class="inherited"><a href="pip_services3_data/IdentifiableMemoryPersistence/getListByIds.html">getListByIds</a></li>
       <li class="inherited"><a href="pip_services3_data/IdentifiableMemoryPersistence/getOneById.html">getOneById</a></li>
@@ -516,7 +526,7 @@ otherwise it create a new data item. <a href="pip_services3_data/IdentifiableMem
 <footer>
   <span class="no-break">
     pip_services3_data
-      1.0.2
+      1.0.3
   </span>
 
   <!-- footer-text placeholder -->

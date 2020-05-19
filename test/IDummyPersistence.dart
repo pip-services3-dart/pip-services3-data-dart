@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:pip_services3_commons/pip_services3_commons.dart';
-import '../lib/src/IGetter.dart';
-import '../lib/src/IWriter.dart';
-import '../lib/src/IPartialUpdater.dart';
+import 'package:pip_services3_data/pip_services3_data.dart';
 import './Dummy.dart';
 
 abstract class IDummyPersistence
@@ -25,4 +23,5 @@ abstract class IDummyPersistence
   @override
   Future<Dummy> deleteById(String correlationId, String id);
   Future deleteByIds(String correlationId, List<String> id);
+  Future<int> getCountByFilter(String correlationId, FilterParams filter);
 }

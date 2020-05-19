@@ -426,4 +426,26 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     };
     await deleteByFilter(correlationId, filter);
   }
+
+  /// Gets a count of data items retrieved by a given filter.
+  ///
+  /// This method shall be called by a public getCountByFilter method from child class that
+  /// receives FilterParams and converts them into a filter function.
+  /// - [correlationId]    (optional) transaction id to trace execution through call chain.
+  /// - [filter]           (optional) a filter function to filter items
+  /// Return                Future that receives a data count
+  /// Throw  error.
+  Future<int> getCountByFilterEx(String correlationId, filter) async {
+    // Filter
+    int count = 0;
+    if (filter != null) {
+      for (var item in items) {
+        if (filter(item)) {
+          count++;
+        }
+      }
+    }
+    logger.trace(correlationId, 'Find %d items', [count]);
+    return count;
+  }
 }

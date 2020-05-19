@@ -9,3 +9,7 @@
 ## 1.0.2
 
 - Add suffix Ex for methods  getListByFilter and getPageByFilter in IdentifiableMemoryPersistence
+
+## 1.0.3
+
+- Add getCountByFilterEx in IdentiifibleMemoryPersistence

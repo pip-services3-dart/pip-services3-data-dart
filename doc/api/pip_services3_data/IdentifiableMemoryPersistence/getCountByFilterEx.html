@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the create method from the IdentifiableMemoryPersistence class, for the Dart programming language.">
-  <title>create method - IdentifiableMemoryPersistence class - pip_services3_data library - Dart API</title>
+  <meta name="description" content="API docs for the getCountByFilterEx method from the IdentifiableMemoryPersistence class, for the Dart programming language.">
+  <title>getCountByFilterEx method - IdentifiableMemoryPersistence class - pip_services3_data library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
   <base href="../..">
 
@@ -27,9 +27,9 @@
     <li><a href="index.html">pip_services3_data</a></li>
     <li><a href="pip_services3_data/pip_services3_data-library.html">pip_services3_data</a></li>
     <li><a href="pip_services3_data/IdentifiableMemoryPersistence-class.html">IdentifiableMemoryPersistence<span class="signature">&lt;<wbr><span class="type-parameter">T extends IIdentifiable&lt;<wbr><span class="type-parameter">K</span>&gt;</span>, <span class="type-parameter">K</span>&gt;</span></a></li>
-    <li class="self-crumb">create method</li>
+    <li class="self-crumb">getCountByFilterEx method</li>
   </ol>
-  <div class="self-name">create</div>
+  <div class="self-name">getCountByFilterEx</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="index.html">pip_services3_data</a></li>
       <li><a href="pip_services3_data/pip_services3_data-library.html">pip_services3_data</a></li>
       <li><a href="pip_services3_data/IdentifiableMemoryPersistence-class.html">IdentifiableMemoryPersistence<span class="signature">&lt;<wbr><span class="type-parameter">T extends IIdentifiable&lt;<wbr><span class="type-parameter">K</span>&gt;</span>, <span class="type-parameter">K</span>&gt;</span></a></li>
-      <li class="self-crumb">create method</li>
+      <li class="self-crumb">getCountByFilterEx method</li>
     </ol>
     
     <h5>IdentifiableMemoryPersistence class</h5>
@@ -104,25 +104,23 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">create</span> method</h1></div>
+      <div><h1><span class="kind-method">getCountByFilterEx</span> method</h1></div>
 
     <section class="multi-line-signature">
-      <div>
-        <ol class="annotation-list">
-          <li>@override</li>
-        </ol>
-      </div>
-      <span class="returntype">Future<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
-            <span class="name ">create</span>
-(<wbr><span class="parameter" id="create-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="create-param-item"><span class="type-annotation">T</span> <span class="parameter-name">item</span></span>)
-      <div class="features">override</div>
+      <span class="returntype">Future<span class="signature">&lt;<wbr><span class="type-parameter">int</span>&gt;</span></span>
+            <span class="name ">getCountByFilterEx</span>
+(<wbr><span class="parameter" id="getCountByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span> <span class="parameter" id="getCountByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span>)
+      
     </section>
     <section class="desc markdown">
-      <p>Creates a data item.</p>
+      <p>Gets a count of data items retrieved by a given filter.</p>
+<p>This method shall be called by a public getCountByFilter method from child class that
+receives FilterParams and converts them into a filter function.</p>
 <ul>
-<li><code>correlation_id</code>    (optional) transaction id to trace execution through call chain.</li>
-<li><code>item</code>              an item to be created.
-Return         (optional) Future that receives created item or error.</li>
+<li><code>correlationId</code>    (optional) transaction id to trace execution through call chain.</li>
+<li><code>filter</code>           (optional) a filter function to filter items
+Return                Future that receives a data count
+Throw  error.</li>
 </ul>
     </section>
     
