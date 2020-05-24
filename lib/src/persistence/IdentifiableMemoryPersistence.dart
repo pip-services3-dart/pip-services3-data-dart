@@ -100,7 +100,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Throws error.
   Future<DataPage<T>> getPageByFilterEx(String correlationId, Function filter,
       PagingParams paging, Function sort) async {
-    var items = this.items;
+    var items = this.items.toList();
 
     // Filter and sort
     if (filter != null) {
@@ -123,7 +123,8 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     if (skip > 0) {
       items.removeRange(0, skip <= items.length ? skip : items.length);
     }
-    items.getRange(0, take <= items.length ? skip : items.length);
+    items =
+        items.getRange(0, take <= items.length ? take : items.length).toList();
 
     logger.trace(correlationId, 'Retrieved %d items', [items.length]);
 
