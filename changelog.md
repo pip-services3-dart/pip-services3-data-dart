@@ -17,3 +17,7 @@
 ## 1.0.4
 
 - Fix return list size in getPageByFilterEx method in IdentifiableMemoryPersistence
+
+## 1.0.5
+
+- Add suffix Ex for method deleteByFilter in IdentifiableMemoryPersistence

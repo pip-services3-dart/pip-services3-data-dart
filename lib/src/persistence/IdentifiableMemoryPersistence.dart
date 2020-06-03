@@ -393,7 +393,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [filter]            (optional) a filter function to filter items.
   /// Return                Future that receives null for success.
   /// Throws error
-  Future deleteByFilter(String correlationId, filter) async {
+  Future deleteByFilterEx(String correlationId, filter) async {
     var deleted = 0;
     if (!(filter is Function)) {
       throw Exception('Filter parameter must be a function.');
@@ -425,7 +425,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     var filter = (T item) {
       return ids.indexOf(item.id) >= 0;
     };
-    await deleteByFilter(correlationId, filter);
+    await deleteByFilterEx(correlationId, filter);
   }
 
   /// Gets a count of data items retrieved by a given filter.
