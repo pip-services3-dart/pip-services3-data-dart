@@ -21,3 +21,7 @@
 ## 1.0.5
 
 - Add suffix Ex for method deleteByFilter in IdentifiableMemoryPersistence
+
+## 1.0.6 
+
+- Fix deleteById method in IdentifiableMemoryPersistence. 22-06-2020, Levichev Dmitry

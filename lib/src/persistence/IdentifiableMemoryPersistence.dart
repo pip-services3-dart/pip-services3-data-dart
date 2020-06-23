@@ -371,13 +371,13 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
     var index = List.from(items.map((x) {
       return x.id;
     })).indexOf(id);
-    var item = items[index];
 
     if (index < 0) {
       logger.trace(correlationId, 'Item %s was not found', [id]);
       return null;
     }
 
+    var item = items[index];
     items.removeAt(index);
     logger.trace(correlationId, 'Deleted item by %s', [id]);
     await save(correlationId);
