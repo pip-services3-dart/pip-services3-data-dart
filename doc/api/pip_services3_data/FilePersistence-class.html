@@ -192,6 +192,14 @@ See [<a href="../pip_services3_data/JsonFilePersister-class.html">JsonFilePersis
            
                   <div class="features">read / write, inherited</div>
 </dd>
+        <dt id="maxPageSize" class="property inherited">
+          <span class="name"><a href="../pip_services3_data/FilePersistence/maxPageSize.html">maxPageSize</a></span>
+          <span class="signature">&#8596; int</span>         
+        </dt>
+        <dd class="inherited">
+           
+                  <div class="features">read / write, inherited</div>
+</dd>
         <dt id="opened" class="property inherited">
           <span class="name"><a href="../pip_services3_data/FilePersistence/opened.html">opened</a></span>
           <span class="signature">&#8596; bool</span>         
@@ -247,6 +255,60 @@ See [<a href="../pip_services3_data/JsonFilePersister-class.html">JsonFilePersis
                   </dt>
         <dd class="inherited">
           Closes component and frees used resources. <a href="../pip_services3_data/FilePersistence/close.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
+        <dt id="create" class="callable inherited">
+          <span class="name"><a href="../pip_services3_data/FilePersistence/create.html">create</a></span><span class="signature">(<wbr><span class="parameter" id="create-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span><wbr><span class="parameter" id="create-param-item"><span class="type-annotation">T</span> <span class="parameter-name">item</span></span><wbr>)
+            <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Creates a data item. <a href="../pip_services3_data/FilePersistence/create.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
+        <dt id="deleteByFilterEx" class="callable inherited">
+          <span class="name"><a href="../pip_services3_data/FilePersistence/deleteByFilterEx.html">deleteByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="deleteByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span><wbr><span class="parameter" id="deleteByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span><wbr>)
+            <span class="returntype parameter">&#8594; Future</span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Deletes data items that match to a given filter. <a href="../pip_services3_data/FilePersistence/deleteByFilterEx.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
+        <dt id="getCountByFilterEx" class="callable inherited">
+          <span class="name"><a href="../pip_services3_data/FilePersistence/getCountByFilterEx.html">getCountByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getCountByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span><wbr><span class="parameter" id="getCountByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span><wbr>)
+            <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">int</span>&gt;</span></span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Gets a count of data items retrieved by a given filter. <a href="../pip_services3_data/FilePersistence/getCountByFilterEx.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
+        <dt id="getListByFilterEx" class="callable inherited">
+          <span class="name"><a href="../pip_services3_data/FilePersistence/getListByFilterEx.html">getListByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getListByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span><wbr><span class="parameter" id="getListByFilterEx-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span>, </span><wbr><span class="parameter" id="getListByFilterEx-param-sort"><span class="type-annotation">dynamic</span> <span class="parameter-name">sort</span>, </span><wbr><span class="parameter" id="getListByFilterEx-param-select"><span class="type-annotation">dynamic</span> <span class="parameter-name">select</span></span><wbr>)
+            <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">List<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>&gt;</span></span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Gets a list of data items retrieved by a given filter and sorted according to sort parameters. <a href="../pip_services3_data/FilePersistence/getListByFilterEx.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
+        <dt id="getOneRandom" class="callable inherited">
+          <span class="name"><a href="../pip_services3_data/FilePersistence/getOneRandom.html">getOneRandom</a></span><span class="signature">(<wbr><span class="parameter" id="getOneRandom-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span><wbr><span class="parameter" id="getOneRandom-param-filter"><span class="type-annotation">dynamic</span> <span class="parameter-name">filter</span></span><wbr>)
+            <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Gets a random item from items that match to a given filter. <a href="../pip_services3_data/FilePersistence/getOneRandom.html">[...]</a>
+                  <div class="features">inherited</div>
+</dd>
+        <dt id="getPageByFilterEx" class="callable inherited">
+          <span class="name"><a href="../pip_services3_data/FilePersistence/getPageByFilterEx.html">getPageByFilterEx</a></span><span class="signature">(<wbr><span class="parameter" id="getPageByFilterEx-param-correlationId"><span class="type-annotation">String</span> <span class="parameter-name">correlationId</span>, </span><wbr><span class="parameter" id="getPageByFilterEx-param-filter"><span class="type-annotation">Function</span> <span class="parameter-name">filter</span>, </span><wbr><span class="parameter" id="getPageByFilterEx-param-paging"><span class="type-annotation">PagingParams</span> <span class="parameter-name">paging</span>, </span><wbr><span class="parameter" id="getPageByFilterEx-param-sort"><span class="type-annotation">Function</span> <span class="parameter-name">sort</span></span><wbr>)
+            <span class="returntype parameter">&#8594; Future<span class="signature">&lt;<wbr><span class="type-parameter">DataPage<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span>&gt;</span></span>
+          </span>
+                  </dt>
+        <dd class="inherited">
+          Gets a page of data items retrieved by a given filter and sorted according to sort parameters. <a href="../pip_services3_data/FilePersistence/getPageByFilterEx.html">[...]</a>
                   <div class="features">inherited</div>
 </dd>
         <dt id="isOpen" class="callable inherited">
@@ -340,6 +402,7 @@ See [<a href="../pip_services3_data/JsonFilePersister-class.html">JsonFilePersis
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/items.html">items</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/loader.html">loader</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/logger.html">logger</a></li>
+      <li class="inherited"><a href="../pip_services3_data/FilePersistence/maxPageSize.html">maxPageSize</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/opened.html">opened</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/runtimeType.html">runtimeType</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/saver.html">saver</a></li>
@@ -348,6 +411,12 @@ See [<a href="../pip_services3_data/JsonFilePersister-class.html">JsonFilePersis
       <li><a href="../pip_services3_data/FilePersistence/configure.html">configure</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/clear.html">clear</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/close.html">close</a></li>
+      <li class="inherited"><a href="../pip_services3_data/FilePersistence/create.html">create</a></li>
+      <li class="inherited"><a href="../pip_services3_data/FilePersistence/deleteByFilterEx.html">deleteByFilterEx</a></li>
+      <li class="inherited"><a href="../pip_services3_data/FilePersistence/getCountByFilterEx.html">getCountByFilterEx</a></li>
+      <li class="inherited"><a href="../pip_services3_data/FilePersistence/getListByFilterEx.html">getListByFilterEx</a></li>
+      <li class="inherited"><a href="../pip_services3_data/FilePersistence/getOneRandom.html">getOneRandom</a></li>
+      <li class="inherited"><a href="../pip_services3_data/FilePersistence/getPageByFilterEx.html">getPageByFilterEx</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/isOpen.html">isOpen</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/noSuchMethod.html">noSuchMethod</a></li>
       <li class="inherited"><a href="../pip_services3_data/FilePersistence/open.html">open</a></li>
@@ -369,7 +438,7 @@ See [<a href="../pip_services3_data/JsonFilePersister-class.html">JsonFilePersis
 <footer>
   <span class="no-break">
     pip_services3_data
-      1.0.5
+      1.0.6
   </span>
 
 </footer>

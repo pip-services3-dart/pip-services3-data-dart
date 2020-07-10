@@ -25,3 +25,7 @@
 ## 1.0.6 
 
 - Fix deleteById method in IdentifiableMemoryPersistence. 22-06-2020, Levichev Dmitry
+
+## 1.0.7 
+
+- Moved some CRUD operations from IdentifiableMemoryPersistence to MemoryPersistence

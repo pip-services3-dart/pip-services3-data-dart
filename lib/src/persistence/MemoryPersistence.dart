@@ -3,6 +3,7 @@ import 'package:pip_services3_commons/pip_services3_commons.dart';
 import 'package:pip_services3_components/pip_services3_components.dart';
 import '../ILoader.dart';
 import '../ISaver.dart';
+import 'dart:convert';
 
 /// Abstract persistence component that stores data in memory.
 ///
@@ -49,6 +50,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   ILoader<T> loader;
   ISaver<T> saver;
   bool opened = false;
+  int maxPageSize = 100;
 
   /// Creates a new instance of the persistence.
   ///
@@ -129,5 +131,188 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
     items = <T>[];
     logger.trace(correlationId, 'Cleared items');
     await save(correlationId);
+  }
+
+  /// Gets a page of data items retrieved by a given filter and sorted according to sort parameters.
+  ///
+  /// This method shall be called by a public getPageByFilter method from child class that
+  /// receives FilterParams and converts them into a filter function.
+  ///
+  /// - [correlationId]     (optional) transaction id to trace execution through call chain.
+  /// - [filter]            (optional) a filter function to filter items
+  /// - [paging]            (optional) paging parameters
+  /// - [sort]              (optional) sorting parameters
+  /// - [select]            (optional) projection parameters (not used yet)
+  /// Return         Future that receives a data page
+  /// Throws error.
+  Future<DataPage<T>> getPageByFilterEx(String correlationId, Function filter,
+      PagingParams paging, Function sort) async {
+    var items = this.items.toList();
+
+    // Filter and sort
+    if (filter != null) {
+      items = List<T>.from(items.where(filter));
+    }
+    if (sort != null) {
+      items.sort(sort);
+    }
+
+    // Extract a page
+    paging = paging ?? PagingParams();
+    var skip = paging.getSkip(-1);
+    var take = paging.getTake(maxPageSize);
+
+    var total;
+    if (paging.total) {
+      total = items.length;
+    }
+
+    if (skip > 0) {
+      items.removeRange(0, skip <= items.length ? skip : items.length);
+    }
+    items =
+        items.getRange(0, take <= items.length ? take : items.length).toList();
+
+    logger.trace(correlationId, 'Retrieved %d items', [items.length]);
+
+    var page = DataPage<T>(items, total);
+    return page;
+  }
+
+  /// Gets a list of data items retrieved by a given filter and sorted according to sort parameters.
+  ///
+  /// This method shall be called by a public getListByFilter method from child class that
+  /// receives FilterParams and converts them into a filter function.
+  ///
+  /// - [correlationId]    (optional) transaction id to trace execution through call chain.
+  /// - [filter]           (optional) a filter function to filter items
+  /// - [paging]           (optional) paging parameters
+  /// - [sort]             (optional) sorting parameters
+  /// - [select]           (optional) projection parameters (not used yet)
+  /// Return                Future that receives a data list
+  /// Throw  error.
+  Future<List<T>> getListByFilterEx(
+      String correlationId, filter, sort, select) async {
+    var items = this.items;
+
+    // Apply filter
+    if (filter is Function) {
+      items = List<T>.from(items.where(filter));
+    }
+
+    // Apply sorting
+    if (sort is Function) {
+      items.sort(sort);
+    }
+    logger.trace(correlationId, 'Retrieved %d items', [items.length]);
+
+    return items;
+  }
+
+  /// Gets a random item from items that match to a given filter.
+  ///
+  /// This method shall be called by a public getOneRandom method from child class that
+  /// receives FilterParams and converts them into a filter function.
+  ///
+  /// - [correlationId]     (optional) transaction id to trace execution through call chain.
+  /// - [filter]            (optional) a filter function to filter items.
+  /// Return         Future that receives a random item
+  /// Throw error.
+  Future<T> getOneRandom(String correlationId, filter) async {
+    var items = this.items;
+
+    // Apply filter
+    if (filter is Function) {
+      items = List<T>.from(items.where(filter));
+    }
+
+    T item;
+    if (items.isNotEmpty) {
+      items.shuffle();
+      item = items[0];
+    }
+
+    if (item != null) {
+      logger.trace(correlationId, 'Retrieved a random item');
+    } else {
+      logger.trace(correlationId, 'Nothing to return as random item');
+    }
+
+    return item;
+  }
+
+  /// Deletes data items that match to a given filter.
+  ///
+  /// This method shall be called by a public deleteByFilter method from child class that
+  /// receives FilterParams and converts them into a filter function.
+  ///
+  /// - [correlationId]     (optional) transaction id to trace execution through call chain.
+  /// - [filter]            (optional) a filter function to filter items.
+  /// Return                Future that receives null for success.
+  /// Throws error
+  Future deleteByFilterEx(String correlationId, filter) async {
+    var deleted = 0;
+    if (!(filter is Function)) {
+      throw Exception('Filter parameter must be a function.');
+    }
+
+    for (var index = items.length - 1; index >= 0; index--) {
+      var item = items[index];
+      if (filter(item)) {
+        items.removeAt(index);
+        deleted++;
+      }
+    }
+
+    if (deleted == 0) {
+      return null;
+    }
+
+    logger.trace(correlationId, 'Deleted %s items', [deleted]);
+    await save(correlationId);
+  }
+
+  /// Creates a data item.
+  ///
+  /// - [correlation_id]    (optional) transaction id to trace execution through call chain.
+  /// - [item]              an item to be created.
+  /// Return         (optional) Future that receives created item or error.
+
+  Future<T> create(String correlationId, T item) async {
+    var clone_item;
+    if (item is ICloneable) {
+      clone_item = (item as ICloneable).clone();
+    } else {
+      var jsonMap = json.decode(json.encode(item));
+      clone_item = TypeReflector.createInstanceByType(T, []);
+      clone_item.fromJson(jsonMap);
+    }
+
+    items.add(clone_item);
+    logger.trace(correlationId, 'Created item %s', [clone_item.id]);
+    await save(correlationId);
+    return clone_item;
+  }
+
+  /// Gets a count of data items retrieved by a given filter.
+  ///
+  /// This method shall be called by a public getCountByFilter method from child class that
+  /// receives FilterParams and converts them into a filter function.
+  /// - [correlationId]    (optional) transaction id to trace execution through call chain.
+  /// - [filter]           (optional) a filter function to filter items
+  /// Return                Future that receives a data count
+  /// Throw  error.
+  Future<int> getCountByFilterEx(String correlationId, filter) async {
+    // Filter
+    int count = 0;
+    if (filter != null) {
+      for (var item in items) {
+        if (filter(item)) {
+          count++;
+        }
+      }
+    }
+    logger.trace(correlationId, 'Find %d items', [count]);
+    return count;
   }
 }
