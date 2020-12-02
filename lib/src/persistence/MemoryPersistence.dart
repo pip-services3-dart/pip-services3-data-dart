@@ -10,7 +10,7 @@ import 'dart:convert';
 /// This is the most basic persistence component that is only
 /// able to store data items of any type. Specific CRUD operations
 /// over the data items must be implemented in child classes by
-/// accessing this.items property and calling [[save]] method.
+/// accessing this.items property and calling [save] method.
 ///
 /// The component supports loading and saving items from another data source.
 /// That allows to use it as a base class for file and other types
@@ -18,7 +18,7 @@ import 'dart:convert';
 ///
 /// ### References ###
 ///
-/// - \*:logger:\*:\*:1.0       (optional) [[https://rawgit.com/pip-services-node/pip-services3-components-node/master/doc/api/interfaces/log.ilogger.html ILogger]] components to pass log messages
+/// - \*:logger:\*:\*:1.0       (optional) [ILogger](https://pub.dev/documentation/pip_services3_components/latest/pip_services3_components/ILogger-class.html) components to pass log messages
 ///
 /// ### Example ###
 ///

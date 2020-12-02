@@ -10,17 +10,17 @@ import '../ISaver.dart';
 
 /// Abstract persistence component that stores data in memory
 /// and implements a number of CRUD operations over data items with unique ids.
-/// The data items must implement [[https://rawgit.com/pip-services-node/pip-services3-commons-node/master/doc/api/interfaces/data.iidentifiable.html IIdentifiable interface]].
+/// The data items must implement [IIdentifiable interface](https://pub.dev/documentation/pip_services3_commons/latest/pip_services3_commons/IIdentifiable-class.html).
 ///
-/// In basic scenarios child classes shall only override [[getPageByFilter]],
-/// [[getListByFilter]] or [[deleteByFilter]] operations with specific filter function.
+/// In basic scenarios child classes shall only override [getPageByFilter],
+/// [getListByFilter] or [deleteByFilter] operations with specific filter function.
 /// All other operations can be used out of the box.
 ///
 /// In complex scenarios child classes can implement additional operations by
-/// accessing cached items via this._items property and calling [[save]] method
+/// accessing cached items via this._items property and calling [save] method
 /// on updates.
 ///
-/// See [[MemoryPersistence]]
+/// See [MemoryPersistence]
 ///
 /// ### Configuration parameters ###
 ///
@@ -29,7 +29,7 @@ import '../ISaver.dart';
 ///
 /// ### References ###
 ///
-/// - \*:logger:\*:\*:1.0     (optional) [[https://rawgit.com/pip-services-node/pip-services3-components-node/master/doc/api/interfaces/log.ilogger.html ILogger]] components to pass log messages
+/// - \*:logger:\*:\*:1.0     (optional) [ILogger](https://pub.dev/documentation/pip_services3_components/latest/pip_services3_components/ILogger-class.html) components to pass log messages
 ///
 /// ### Examples ###
 ///

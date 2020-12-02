@@ -9,10 +9,10 @@ import './MemoryPersistence.dart';
 /// This is the most basic persistence component that is only
 /// able to store data items of any type. Specific CRUD operations
 /// over the data items must be implemented in child classes by
-/// accessing _items property and calling [[save]] method.
+/// accessing _items property and calling [save] method.
 ///
-/// See [[MemoryPersistence]]
-/// See [[JsonFilePersister]]
+/// See [MemoryPersistence]
+/// See [JsonFilePersister]
 ///
 /// ### Configuration parameters ###
 ///
@@ -20,7 +20,7 @@ import './MemoryPersistence.dart';
 ///
 /// ### References ###
 ///
-/// - \*:logger:\*:\*:1.0   (optional) [[https://rawgit.com/pip-services-node/pip-services3-components-node/master/doc/api/interfaces/log.ilogger.html ILogger]] components to pass log messages
+/// - \*:logger:\*:\*:1.0   (optional) [ILogger](https://pub.dev/documentation/pip_services3_components/latest/pip_services3_components/ILogger-class.html) components to pass log messages
 ///
 /// ### Example ###
 ///
