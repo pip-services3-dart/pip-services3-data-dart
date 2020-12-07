@@ -24,8 +24,8 @@ import '../ISaver.dart';
 ///
 /// ### Configuration parameters ###
 ///
-/// - options:
-///     - max_page_size:       Maximum number of items returned in a single page (default: 100)
+/// - [options]:
+///     - [max_page_size]:       Maximum number of items returned in a single page (default: 100)
 ///
 /// ### References ###
 ///

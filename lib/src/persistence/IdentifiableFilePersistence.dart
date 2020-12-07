@@ -20,9 +20,9 @@ import './JsonFilePersister.dart';
 ///
 /// ### Configuration parameters ###
 ///
-/// - path:                    path to the file where data is stored
-/// - options:
-///     - max_page_size:       Maximum number of items returned in a single page (default: 100)
+/// - [path]:                    path to the file where data is stored
+/// - [options]:
+///     - [max_page_size]:       Maximum number of items returned in a single page (default: 100)
 ///
 /// ### References ###
 ///

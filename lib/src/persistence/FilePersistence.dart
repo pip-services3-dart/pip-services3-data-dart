@@ -16,7 +16,7 @@ import './MemoryPersistence.dart';
 ///
 /// ### Configuration parameters ###
 ///
-/// - path:                path to the file where data is stored
+/// - [path]:                path to the file where data is stored
 ///
 /// ### References ###
 ///
