@@ -27,5 +27,13 @@ void main() {
     test('Batch Operations', () async {
       await fixture.testBatchOperations();
     });
+
+    test('Page Sort Operations', () async {
+      await fixture.testPageSortingOperations();
+    });
+
+    test('List Sort Operations', () async {
+      await fixture.testListSortingOperations();
+    });
   });
 }

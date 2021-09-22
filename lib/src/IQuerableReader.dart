@@ -11,5 +11,5 @@ abstract class IQuerableReader<T> {
   /// Return         Future that receives list of items
   /// Throws error.
   Future<List<T>> getListByQuery(
-      String correlation_id, String query, SortParams sort);
+      String? correlation_id, String query, SortParams sort);
 }

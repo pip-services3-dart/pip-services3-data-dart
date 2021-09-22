@@ -7,5 +7,5 @@ abstract class ILoader<T> {
   /// - [correlation_id]    (optional) transaction id to trace execution through call chain.
   /// Return                Future that receives a list of data items
   /// Throw error.
-  Future<List<T>> load(String correlation_id);
+  Future<List<T>> load(String? correlation_id);
 }

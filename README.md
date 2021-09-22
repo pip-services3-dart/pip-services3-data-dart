@@ -42,6 +42,10 @@ class MyObject implements IIdentifiable<String> {
   String id;
   String key;
   int value;
+
+  factory MyObject.fromJson(Map<String, dynamic> json) {
+    return MyObject(id: json['id'], key: json['key'], content: json['value']);
+  }
 }
 
 ```

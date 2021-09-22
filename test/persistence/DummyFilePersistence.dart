@@ -4,10 +4,11 @@ import './DummyMemoryPersistence.dart';
 import '../Dummy.dart';
 
 class DummyFilePersistence extends DummyMemoryPersistence {
-  JsonFilePersister<Dummy> _persister;
+  final JsonFilePersister<Dummy> _persister;
 
-  DummyFilePersistence([String path]) : super() {
-    _persister = JsonFilePersister<Dummy>(path);
+  DummyFilePersistence([String? path])
+      : _persister = JsonFilePersister<Dummy>(path),
+        super() {
     loader = _persister;
     saver = _persister;
   }

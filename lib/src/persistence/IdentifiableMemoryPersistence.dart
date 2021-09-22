@@ -45,7 +45,7 @@ import '../ISaver.dart';
 ///             };
 ///         }
 ///
-///         Future<DataPage<MyData>> getPageByFilter(String correlationId, FilterParams filter, PagingParams paging){
+///         Future<DataPage<MyData>> getPageByFilter(String? correlationId, FilterParams filter, PagingParams paging){
 ///             return super.getPageByFilter(correlationId, composeFilter(filter), paging, null, null);
 ///         }
 ///
@@ -72,7 +72,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   ///
   /// - [loader]    (optional) a loader to load items from external datasource.
   /// - [saver]     (optional) a saver to save items to external datasource.
-  IdentifiableMemoryPersistence([ILoader<T> loader, ISaver<T> saver])
+  IdentifiableMemoryPersistence([ILoader<T>? loader, ISaver<T>? saver])
       : super(loader, saver);
 
   /// Configures component by passing configuration parameters.
@@ -90,9 +90,9 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [ids]               ids of data items to be retrieved
   /// Return                Future that receives a data list
   /// Throw error.
-  Future<List<T>> getListByIds(String correlationId, List<K> ids) {
+  Future<List<T>> getListByIds(String? correlationId, List<K> ids) {
     var filter = (T item) {
-      return ids.indexOf(item.id) >= 0;
+      return ids.contains(item.id);
     };
     return getListByFilterEx(correlationId, filter, null, null);
   }
@@ -103,7 +103,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [id]                an id of data item to be retrieved.
   /// Return         Future that receives data item or error.
   @override
-  Future<T> getOneById(String correlationId, K id) async {
+  Future<T?> getOneById(String? correlationId, K id) async {
     var items = List<T>.from(this.items.where((x) {
       return x.id == id;
     }));
@@ -125,7 +125,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         (optional) Future that receives created item or error.
 
   @override
-  Future<T> create(String correlationId, T item) async {
+  Future<T> create(String? correlationId, T item) async {
     var clone_item;
     if (item is ICloneable) {
       clone_item = (item as ICloneable).clone();
@@ -152,7 +152,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [item]              a item to be set.
   /// Return         (optional) Future that receives updated item or error.
   @override
-  Future<T> set(String correlationId, T item) async {
+  Future<T> set(String? correlationId, T item) async {
     var clone_item;
     if (item is ICloneable) {
       clone_item = (item as ICloneable).clone();
@@ -191,7 +191,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         (optional) Future that receives updated item
   /// Throws error.
   @override
-  Future<T> update(String correlationId, T item) async {
+  Future<T?> update(String? correlationId, T item) async {
     var index = List.from(items.map((x) {
       return x.id;
     })).indexOf(item.id);
@@ -229,8 +229,8 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [data]              a map with fields to be updated.
   /// Return         Future that receives updated item
   /// Throws error.
-  Future<T> updatePartially(
-      String correlationId, K id, AnyValueMap data) async {
+  Future<T?> updatePartially(
+      String? correlationId, K id, AnyValueMap data) async {
     var index = List.from(items.map((x) {
       return x.id;
     })).indexOf(id);
@@ -257,7 +257,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return                Future that receives deleted item
   /// Throws error.
   @override
-  Future<T> deleteById(String correlationId, K id) async {
+  Future<T?> deleteById(String? correlationId, K id) async {
     var index = List.from(items.map((x) {
       return x.id;
     })).indexOf(id);
@@ -280,9 +280,9 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [ids]               ids of data items to be deleted.
   /// Return                 Future that receives null for success.
   /// Throws error
-  Future deleteByIds(String correlationId, List<K> ids) async {
+  Future deleteByIds(String? correlationId, List<K> ids) async {
     var filter = (T item) {
-      return ids.indexOf(item.id) >= 0;
+      return ids.contains(item.id);
     };
     await deleteByFilterEx(correlationId, filter);
   }

@@ -11,7 +11,7 @@ class DummyMemoryPersistence
 
   @override
   Future<DataPage<Dummy>> getPageByFilter(
-      String correlationId, filter, PagingParams paging) {
+      String? correlationId, FilterParams? filter, PagingParams? paging) {
     filter = filter ?? FilterParams();
     var key = filter.getAsNullableString('key');
 
@@ -25,7 +25,7 @@ class DummyMemoryPersistence
 
   @override
   Future<int> getCountByFilter(
-      String correlationId, FilterParams filter) async {
+      String? correlationId, FilterParams? filter) async {
     filter = filter ?? FilterParams();
     var key = filter.getAsNullableString('key');
 
@@ -35,5 +35,17 @@ class DummyMemoryPersistence
       }
       return true;
     });
+  }
+
+  @override
+  Future<DataPage<Dummy>> getSortedPage(
+      String? correlationId, Function sort) async {
+    return await super.getPageByFilterEx(correlationId, null, null, sort, null);
+  }
+
+  @override
+  Future<List<Dummy>> getSortedList(
+      String? correlationId, Function sort) async {
+    return await super.getListByFilterEx(correlationId, null, sort, null);
   }
 }

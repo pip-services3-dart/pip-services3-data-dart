@@ -11,5 +11,5 @@ abstract class IFilteredReader<T> {
   /// Return                Future that receives list of items
   /// Throw error.
   Future<List<T>> getListByFilter(
-      String correlation_id, FilterParams filter, SortParams sort);
+      String? correlation_id, FilterParams filter, SortParams sort);
 }

@@ -31,3 +31,8 @@
 ## 1.0.7 
 
 - Moved some CRUD operations from IdentifiableMemoryPersistence to MemoryPersistence
+
+## 1.1.0
+
+- Migrate to null-safety
+- Fixed sort and filter params fro persistences

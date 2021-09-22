@@ -10,5 +10,5 @@ abstract class IPartialUpdater<T, K> {
   /// - [data]              a map with fields to be updated.
   /// Return          Future that receives updated item
   /// Throw error.
-  Future<T> updatePartially(String correlation_id, K id, AnyValueMap data);
+  Future<T?> updatePartially(String? correlation_id, K id, AnyValueMap data);
 }

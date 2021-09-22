@@ -10,5 +10,5 @@ abstract class IGetter<T extends IIdentifiable<K>, K> {
   /// - [id]                an id of item to be retrieved.
   /// Return                that receives an item
   /// Throw error.
-  Future<T> getOneById(String correlation_id, K id);
+  Future<T?> getOneById(String? correlation_id, K id);
 }

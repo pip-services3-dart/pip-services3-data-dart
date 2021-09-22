@@ -28,7 +28,7 @@ import './MemoryPersistence.dart';
 ///         MyJsonFilePersistence([String path]): super(JsonPersister(path)) {
 ///         }
 ///
-///          Future<MyData> getByName(String correlationId, String name) async {
+///          Future<MyData> getByName(String? correlationId, String name) async {
 ///             var item = items.firstWhere((d) => d.name == name);
 ///             return item;
 ///         });
@@ -49,10 +49,10 @@ class FilePersistence<T> extends MemoryPersistence<T> implements IConfigurable {
   ///
   /// - [persister]    (optional) a persister component that loads and saves data from/to flat file.
 
-  FilePersistence([JsonFilePersister<T> persister]) {
-    persister = persister ?? JsonFilePersister<T>();
-    saver = persister;
-    loader = persister;
+  FilePersistence([JsonFilePersister<T>? persister])
+      : persister = persister ?? JsonFilePersister<T>() {
+    saver = this.persister;
+    loader = this.persister;
   }
 
   /// Configures component by passing configuration parameters.

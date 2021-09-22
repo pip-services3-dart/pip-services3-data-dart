@@ -44,7 +44,7 @@ import './JsonFilePersister.dart';
 ///             };
 ///         }
 ///
-///         Future<DataPage<MyData>> getPageByFilter(string correlationId, FilterParams filter, PagingParams paging){
+///         Future<DataPage<MyData>> getPageByFilter(String? correlationId, FilterParams filter, PagingParams paging){
 ///            return super.getPageByFilter(correlationId, _composeFilter(filter), paging, null, null);
 ///         }
 ///
@@ -68,16 +68,17 @@ import './JsonFilePersister.dart';
 
 class IdentifiableFilePersistence<T extends IIdentifiable<K>, K>
     extends IdentifiableMemoryPersistence<T, K> {
-  JsonFilePersister<T> _persister;
+  final JsonFilePersister<T> _persister;
 
   /// Creates a new instance of the persistence.
   ///
   /// - [persister]    (optional) a persister component that loads and saves data from/to flat file.
-  IdentifiableFilePersistence([JsonFilePersister<T> persister]) {
-    persister = persister ?? JsonFilePersister<T>();
-    loader = persister;
-    saver = persister;
-    _persister = persister;
+  IdentifiableFilePersistence([JsonFilePersister<T>? persister])
+      : _persister = persister ?? JsonFilePersister<T>(),
+        super(persister ?? JsonFilePersister<T>(),
+            persister ?? JsonFilePersister<T>()) {
+    loader = _persister;
+    saver = _persister;
   }
 
   /// Configures component by passing configuration parameters.

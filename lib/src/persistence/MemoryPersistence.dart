@@ -24,7 +24,7 @@ import 'dart:convert';
 ///
 ///     class MyMemoryPersistence extends MemoryPersistence<MyData> {
 ///
-///        Future<MyData> getByName(String correlationId, String name) async {
+///        Future<MyData> getByName(String? correlationId, String name) async {
 ///             var item = items.firstWhere((d) => d.name == name);
 ///            return item;
 ///         });
@@ -47,8 +47,8 @@ import 'dart:convert';
 class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   var logger = CompositeLogger();
   var items = <T>[];
-  ILoader<T> loader;
-  ISaver<T> saver;
+  ILoader<T>? loader;
+  ISaver<T>? saver;
   bool opened = false;
   int maxPageSize = 100;
 
@@ -57,7 +57,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [loader]    (optional) a loader to load items from external datasource.
   /// - [saver]     (optional) a saver to save items to external datasource.
 
-  MemoryPersistence([ILoader<T> loader, ISaver<T> saver]) {
+  MemoryPersistence([ILoader<T>? loader, ISaver<T>? saver]) {
     this.loader = loader;
     this.saver = saver;
   }
@@ -84,17 +84,17 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [correlationId] 	(optional) transaction id to trace execution through call chain.
   /// Return			Future that receives error or null no errors occured.
   @override
-  Future open(String correlationId) async {
+  Future open(String? correlationId) async {
     await _load(correlationId);
     opened = true;
   }
 
-  Future _load(String correlationId) async {
+  Future _load(String? correlationId) async {
     if (loader == null) {
       return null;
     }
 
-    var items = await loader.load(correlationId);
+    var items = await loader!.load(correlationId);
     this.items = items;
     logger.trace(correlationId, 'Loaded %d items', [items.length]);
   }
@@ -104,7 +104,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [correlationId] 	(optional) transaction id to trace execution through call chain.
   /// Return			Future that receives error or null no errors occured.
   @override
-  Future close(String correlationId) async {
+  Future close(String? correlationId) async {
     await save(correlationId);
     opened = false;
   }
@@ -113,12 +113,12 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   ///
   /// - [correlationId]     (optional) transaction id to trace execution through call chain.
   /// Return         (optional) Future that receives error or null for success.
-  Future save(String correlationId) async {
+  Future save(String? correlationId) async {
     if (saver == null) {
       return null;
     }
 
-    await saver.save(correlationId, items);
+    await saver!.save(correlationId, items);
     logger.trace(correlationId, 'Saved %d items', [items.length]);
   }
 
@@ -127,7 +127,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [correlationId] 	(optional) transaction id to trace execution through call chain.
   /// Return			Future that receives error or null no errors occured.
   @override
-  Future clear(String correlationId) async {
+  Future clear(String? correlationId) async {
     items = <T>[];
     logger.trace(correlationId, 'Cleared items');
     await save(correlationId);
@@ -145,16 +145,23 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [select]            (optional) projection parameters (not used yet)
   /// Return         Future that receives a data page
   /// Throws error.
-  Future<DataPage<T>> getPageByFilterEx(String correlationId, Function filter,
-      PagingParams paging, Function sort) async {
+  Future<DataPage<T>> getPageByFilterEx(String? correlationId, Function? filter,
+      PagingParams? paging, Function? sort,
+      [select]) async {
     var items = this.items.toList();
 
     // Filter and sort
     if (filter != null) {
-      items = List<T>.from(items.where(filter));
+      items = List<T>.from(items.where((item) => filter(item)));
     }
     if (sort != null) {
-      items.sort(sort);
+      items.sort((a, b) {
+        var sa = sort(a);
+        var sb = sort(b);
+        if (sa > sb) return -1;
+        if (sa < sb) return 1;
+        return 0;
+      });
     }
 
     // Extract a page
@@ -175,7 +182,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
 
     logger.trace(correlationId, 'Retrieved %d items', [items.length]);
 
-    var page = DataPage<T>(items, total);
+    var page = DataPage<T>(items, total ?? 0);
     return page;
   }
 
@@ -192,18 +199,25 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// Return                Future that receives a data list
   /// Throw  error.
   Future<List<T>> getListByFilterEx(
-      String correlationId, filter, sort, select) async {
+      String? correlationId, Function? filter, Function? sort, select) async {
     var items = this.items;
 
     // Apply filter
-    if (filter is Function) {
-      items = List<T>.from(items.where(filter));
+    if (filter != null) {
+      items = List<T>.from(items.where((item) => filter(item)));
     }
 
     // Apply sorting
-    if (sort is Function) {
-      items.sort(sort);
+    if (sort != null) {
+      items.sort((a, b) {
+        var sa = sort(a);
+        var sb = sort(b);
+        if (sa > sb) return -1;
+        if (sa < sb) return 1;
+        return 0;
+      });
     }
+
     logger.trace(correlationId, 'Retrieved %d items', [items.length]);
 
     return items;
@@ -218,15 +232,15 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [filter]            (optional) a filter function to filter items.
   /// Return         Future that receives a random item
   /// Throw error.
-  Future<T> getOneRandom(String correlationId, filter) async {
+  Future<T?> getOneRandom(String? correlationId, Function? filter) async {
     var items = this.items;
 
     // Apply filter
-    if (filter is Function) {
-      items = List<T>.from(items.where(filter));
+    if (filter != null) {
+      items = List<T>.from(items.where((item) => filter(item)));
     }
 
-    T item;
+    T? item;
     if (items.isNotEmpty) {
       items.shuffle();
       item = items[0];
@@ -250,7 +264,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [filter]            (optional) a filter function to filter items.
   /// Return                Future that receives null for success.
   /// Throws error
-  Future deleteByFilterEx(String correlationId, filter) async {
+  Future deleteByFilterEx(String? correlationId, Function filter) async {
     var deleted = 0;
     if (!(filter is Function)) {
       throw Exception('Filter parameter must be a function.');
@@ -278,10 +292,10 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [item]              an item to be created.
   /// Return         (optional) Future that receives created item or error.
 
-  Future<T> create(String correlationId, T item) async {
+  Future<T> create(String? correlationId, T item) async {
     var clone_item;
     if (item is ICloneable) {
-      clone_item = (item as ICloneable).clone();
+      clone_item = (item).clone();
     } else {
       var jsonMap = json.decode(json.encode(item));
       clone_item = TypeReflector.createInstanceByType(T, []);
@@ -302,9 +316,10 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [filter]           (optional) a filter function to filter items
   /// Return                Future that receives a data count
   /// Throw  error.
-  Future<int> getCountByFilterEx(String correlationId, filter) async {
+  Future<int> getCountByFilterEx(
+      String? correlationId, Function? filter) async {
     // Filter
-    int count = 0;
+    var count = 0;
     if (filter != null) {
       for (var item in items) {
         if (filter(item)) {

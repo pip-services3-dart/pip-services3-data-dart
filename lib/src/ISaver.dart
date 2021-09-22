@@ -8,5 +8,5 @@ abstract class ISaver<T> {
   /// - item              a list of items to save.
   /// Return         (optional) Future that receives null for success.
   /// Throw error
-  Future save(String correlation_id, List<T> items);
+  Future save(String? correlation_id, List<T> items);
 }
