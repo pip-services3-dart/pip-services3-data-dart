@@ -291,8 +291,7 @@ class MemoryPersistence<T> implements IReferenceable, IOpenable, ICleanable {
   /// - [correlation_id]    (optional) transaction id to trace execution through call chain.
   /// - [item]              an item to be created.
   /// Return         (optional) Future that receives created item or error.
-
-  Future<T> create(String? correlationId, T item) async {
+  Future<T?> create(String? correlationId, T item) async {
     var clone_item;
     if (item is ICloneable) {
       clone_item = (item).clone();

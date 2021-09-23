@@ -9,5 +9,5 @@ abstract class ISetter<T> {
   /// - [item]              a item to be set.
   /// Return         (optional) Future that receives updated item
   /// Throw error.
-  Future<T> set(String? correlation_id, T item);
+  Future<T?> set(String? correlation_id, T? item);
 }

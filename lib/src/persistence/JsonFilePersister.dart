@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:mirrors';
 import 'package:pip_services3_commons/pip_services3_commons.dart';
 
 import '../ILoader.dart';
@@ -80,15 +79,15 @@ class JsonFilePersister<T> implements ILoader<T>, ISaver<T>, IConfigurable {
       var arr = ArrayConverter.listToArray(list);
 
       try {
-        var list = arr
-            .map((item) =>
-                reflectClass(T).newInstance(#fromJson, [item]).reflectee as T)
-            .toList();
+        var objectsList = arr.map((item) {
+          var obj = TypeReflector.createInstanceByType(T, []);
+          obj.fromJson(item);
+          return obj as T;
+        }).toList();
 
-        return list;
+        return objectsList;
       } on NoSuchMethodError {
-        throw Exception(
-            'Data class must have fromJson constructor for conversions');
+        throw Exception('Data class must have fromJson method for conversions');
       }
     } catch (ex) {
       var err = FileException(correlation_id, 'READ_FAILED',
@@ -104,7 +103,7 @@ class JsonFilePersister<T> implements ILoader<T>, ISaver<T>, IConfigurable {
   /// - [items]             list if data items to save
   /// Return         Future that error or null for success.
   @override
-  Future save(String? correlation_id, List<T> items) async {
+  Future save(String? correlation_id, List<T?> items) async {
     try {
       var json = JsonConverter.toJson(items);
       File(path!).writeAsStringSync(json!);

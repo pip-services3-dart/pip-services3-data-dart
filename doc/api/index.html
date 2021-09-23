@@ -79,6 +79,12 @@ class MyObject implements IIdentifiable&lt;String&gt; {
   String id;
   String key;
   int value;
+
+  void fromJson(Map&lt;String, dynamic&gt; json) {
+    id = json['id'];
+    key = json['key'];
+    content = json['content'];
+  }
 }
 
 </code></pre>
@@ -244,7 +250,7 @@ class MyFilePersistence extends MyMemoryPersistence {
 <footer>
   <span class="no-break">
     pip_services3_data
-      1.1.0
+      1.1.1
   </span>
 
   

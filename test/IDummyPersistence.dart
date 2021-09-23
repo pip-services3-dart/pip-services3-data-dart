@@ -14,14 +14,14 @@ abstract class IDummyPersistence
   @override
   Future<Dummy?> getOneById(String? correlationId, String id);
   @override
-  Future<Dummy?> create(String? correlationId, Dummy item);
+  Future<Dummy?> create(String? correlationId, Dummy? item);
   @override
-  Future<Dummy?> update(String? correlationId, Dummy item);
+  Future<Dummy?> update(String? correlationId, Dummy? item);
   @override
   Future<Dummy?> updatePartially(
       String? correlationId, String id, AnyValueMap data);
   @override
-  Future<Dummy?> deleteById(String? correlationId, String id);
+  Future<Dummy?> deleteById(String? correlationId, String? id);
   Future deleteByIds(String? correlationId, List<String> id);
   Future<int> getCountByFilter(String? correlationId, FilterParams? filter);
 

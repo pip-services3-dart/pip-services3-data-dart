@@ -8,7 +8,7 @@ abstract class IWriter<T, K> {
   /// - [item]              an item to be created.
   /// Return                Future that receives created item
   /// Throw error.
-  Future<T?> create(String? correlation_id, T item);
+  Future<T?> create(String? correlation_id, T? item);
 
   /// Updates a data item.
   ///
@@ -16,7 +16,7 @@ abstract class IWriter<T, K> {
   /// - [item]              an item to be updated.
   /// Return                Future that receives updated item
   /// Throw error.
-  Future<T?> update(String? correlation_id, T item);
+  Future<T?> update(String? correlation_id, T? item);
 
   /// Deleted a data item by it's unique id.
   ///
@@ -24,5 +24,5 @@ abstract class IWriter<T, K> {
   /// - [id]                an id of the item to be deleted
   /// Return                Future that receives deleted item
   /// Throw error.
-  Future<T?> deleteById(String? correlation_id, K id);
+  Future<T?> deleteById(String? correlation_id, K? id);
 }

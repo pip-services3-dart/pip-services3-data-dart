@@ -36,3 +36,8 @@
 
 - Migrate to null-safety
 - Fixed sort and filter params fro persistences
+
+## 1.1.1
+
+- Fixed json conversions
+- Update interfaces

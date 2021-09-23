@@ -12,6 +12,6 @@ abstract class IQuerablePageReader<T> {
   /// - [sort]              (optional) sort parameters
   /// Return          Future that receives list of items or error.
 
-  Future<DataPage<T>> getPageByQuery(String? correlation_id, String query,
-      PagingParams paging, SortParams sort);
+  Future<DataPage<T>> getPageByQuery(String? correlation_id, String? query,
+      PagingParams? paging, SortParams? sort);
 }

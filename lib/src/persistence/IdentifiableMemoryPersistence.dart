@@ -125,7 +125,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         (optional) Future that receives created item or error.
 
   @override
-  Future<T> create(String? correlationId, T item) async {
+  Future<T?> create(String? correlationId, T? item) async {
     var clone_item;
     if (item is ICloneable) {
       clone_item = (item as ICloneable).clone();
@@ -152,7 +152,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// - [item]              a item to be set.
   /// Return         (optional) Future that receives updated item or error.
   @override
-  Future<T> set(String? correlationId, T item) async {
+  Future<T?> set(String? correlationId, T? item) async {
     var clone_item;
     if (item is ICloneable) {
       clone_item = (item as ICloneable).clone();
@@ -191,13 +191,13 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return         (optional) Future that receives updated item
   /// Throws error.
   @override
-  Future<T?> update(String? correlationId, T item) async {
+  Future<T?> update(String? correlationId, T? item) async {
     var index = List.from(items.map((x) {
       return x.id;
-    })).indexOf(item.id);
+    })).indexOf(item?.id);
 
     if (index < 0) {
-      logger.trace(correlationId, 'Item %s was not found', [item.id]);
+      logger.trace(correlationId, 'Item %s was not found', [item?.id]);
       return null;
     }
 
@@ -257,7 +257,7 @@ class IdentifiableMemoryPersistence<T extends IIdentifiable<K>, K>
   /// Return                Future that receives deleted item
   /// Throws error.
   @override
-  Future<T?> deleteById(String? correlationId, K id) async {
+  Future<T?> deleteById(String? correlationId, K? id) async {
     var index = List.from(items.map((x) {
       return x.id;
     })).indexOf(id);

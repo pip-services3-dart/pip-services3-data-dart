@@ -12,5 +12,5 @@ abstract class IFilteredPageReader<T> {
   /// Return                Future that receives list of items
   /// Throw error.
   Future<DataPage<T>> getPageByFilter(String? correlation_id,
-      FilterParams filter, PagingParams paging, SortParams sort);
+      FilterParams? filter, PagingParams? paging, SortParams? sort);
 }
