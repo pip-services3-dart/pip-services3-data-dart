@@ -50,7 +50,7 @@ class DummyPersistenceFixture {
     expect(dummy1.content, result?.content);
 
     // Partially update the dummy
-    result = await _persistence.updatePartially(null, dummy1.id,
+    result = await _persistence.updatePartially(null, dummy1.id!,
         AnyValueMap.fromTuples(['content', 'Partially Updated Content 1']));
 
     expect(result, isNotNull);
@@ -59,7 +59,7 @@ class DummyPersistenceFixture {
     expect('Partially Updated Content 1', result.content);
 
     // Get the dummy by Id
-    result = await _persistence.getOneById(null, dummy1.id);
+    result = await _persistence.getOneById(null, dummy1.id!);
     // Try to get item
     expect(result, isNotNull);
     expect(dummy1.id, result!.id);
@@ -74,7 +74,7 @@ class DummyPersistenceFixture {
     expect('Partially Updated Content 1', result.content);
 
     // Get the deleted dummy
-    result = await _persistence.getOneById(null, dummy1.id);
+    result = await _persistence.getOneById(null, dummy1.id!);
     // Try to get item
     expect(result, isNull);
   }
@@ -100,18 +100,18 @@ class DummyPersistenceFixture {
     expect(_dummy2.content, dummy2.content);
 
     // Read batch
-    var items = await _persistence.getListByIds(null, [dummy1.id, dummy2.id]);
+    var items = await _persistence.getListByIds(null, [dummy1.id!, dummy2.id!]);
     expect(items.length, 2);
 
     // Delete batch
     try {
-      await _persistence.deleteByIds(null, [dummy1.id, dummy2.id]);
+      await _persistence.deleteByIds(null, [dummy1.id!, dummy2.id!]);
     } catch (err) {
       expect(err, isNull);
     }
 
     // Read empty batch
-    items = await _persistence.getListByIds(null, [dummy1.id, dummy2.id]);
+    items = await _persistence.getListByIds(null, [dummy1.id!, dummy2.id!]);
     expect(items.length, 0);
   }
 

@@ -39,9 +39,15 @@ For example, you need to implement persistence for a data object defined as foll
 import 'package:pip_services3_commons/src/data/IIdentifiable.dart';
 
 class MyObject implements IIdentifiable<String> {
-  String id;
+  @override
+  String? id;
   String key;
-  int value;
+  String value;
+
+  Dummy({String? id, String key, String value})
+      : id = id,
+        key = key,
+        content = content;
 
   void fromJson(Map<String, dynamic> json) {
     id = json['id'];
