@@ -41,3 +41,7 @@
 
 - Fixed json conversions
 - Update interfaces
+
+## 1.1.2
+
+- Fixed JsonFilePersister.configure for empty config

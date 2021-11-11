@@ -53,7 +53,7 @@ class JsonFilePersister<T> implements ILoader<T>, ISaver<T>, IConfigurable {
   /// - [config]    configuration parameters to be set.
   @override
   void configure(ConfigParams config) {
-    path = config.getAsStringWithDefault('path', '');
+    path = config.getAsNullableString('path') ?? path;
   }
 
   /// Loads data items from external JSON file.
